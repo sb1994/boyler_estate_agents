@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+
+const userRoutesV1 = require("./v1/routes/userRoutes");
 const { default: mongoose } = require("mongoose");
 
 require("dotenv").config();
@@ -26,10 +28,8 @@ app.use(cors());
 app.use(express.json());
 
 //test route
-
-app.get("/api/v1/test", (req, res) => {
-  res.status(201).json({ msg: "Hello World" });
-});
+//version 1
+app.use("/api/v1/users", userRoutesV1);
 
 // Connection
 const PORT = process.env.PORT || 8080;
