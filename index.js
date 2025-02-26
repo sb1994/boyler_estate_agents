@@ -5,11 +5,17 @@ const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 
+const { traceMiddleware } = require("./v1/utils/utils");
+app.use(traceMiddleware);
+
+const passport = require("./v1/utils/passport");
+
 const userRoutesV1 = require("./v1/routes/userRoutes");
 const { default: mongoose } = require("mongoose");
 
 require("dotenv").config();
 
+app.use(passport.initialize());
 // Mongo DB Connections
 mongoose
   .connect(process.env.DB_URI, {

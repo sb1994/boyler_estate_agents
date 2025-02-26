@@ -33,9 +33,6 @@ const UserSchema = new mongoose.Schema({
   },
   salary: {
     type: Number,
-    required: function () {
-      return this.role !== "buyer";
-    },
     default: 0,
   },
   bonus: {

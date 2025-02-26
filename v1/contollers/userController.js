@@ -6,27 +6,59 @@ const path = require("path"); // Import the path module
 
 const { PERMISSIONS } = require("../config/permissions");
 const { isEmpty } = require("../utils/utils");
+const logger = require("../utils/logger");
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     if ([email, password].some(isEmpty)) {
-      return res
+      logger.error({
+        data: {
+          status: 500,
+          traceToken: req.traceToken,
+          apiAction: "GetAPIToken",
+          apiEndpoint: req.originalUrl,
+          method: req.method,
+          mess: "EMAIL AND PASSWORD FIELDS REQUIRED",
+        },
+      });
+      res
         .status(400)
         .json({ success: false, message: "All fields are required!" });
     }
 
     const user = await User.findOne({ email }).select("+password");
-    console.log(user);
 
     if (!user) {
+      logger.error({
+        data: {
+          status: 500,
+          traceToken: req.traceToken,
+          apiAction: "GetAPIToken",
+          apiEndpoint: req.originalUrl,
+          method: req.method,
+          mess: "USER NOT FOUND",
+        },
+      });
       return res.status(400).json({ message: "User not found" });
     }
 
     // Check if the password matches
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      logger.error({
+        data: {
+          status: 500,
+          traceToken: req.traceToken,
+          apiAction: "GetAPIToken",
+          apiEndpoint: req.originalUrl,
+          method: req.method,
+          mess: "CREDENTIALS USED DONT MATCH STORED CREDENTIALS",
+        },
+      });
+      return res
+        .status(400)
+        .json({ message: "CREDENTIALS USED DONT MATCH STORED CREDENTIALS" });
     }
 
     // Generate a JWT token
@@ -38,6 +70,18 @@ const loginUser = async (req, res) => {
       }
     );
 
+    logger.info({
+      data: {
+        status: 200,
+        traceToken: req.traceToken,
+        apiAction: "GetAPIToken",
+        apiUserID: user._id,
+        apiEndpoint: req.originalUrl,
+        method: req.method,
+        mess: "TOKEN SUCCESSFULLY CREATED",
+      },
+    });
+
     // Return the token and user data
     res.json({
       token,
@@ -46,9 +90,6 @@ const loginUser = async (req, res) => {
         role: user.role,
       },
     });
-    // res.json({ msg: "no token" });
-
-    // res.status(200).json({ msg: "user logged in" });
   } catch (error) {
     res.status(500).json({ err: error.message });
   }
@@ -110,11 +151,76 @@ const createAdminUser = async (req, res) => {
       .json({ success: false, message: "Server error", error: error.message });
   }
 };
+const getUserById = async (req, res) => {
+  let { id } = req.params;
+  let { user } = req;
+
+  if (isEmpty(id)) {
+    logger.error({
+      data: {
+        status: 500,
+        apiUserID: user.id,
+        traceToken: req.traceToken,
+        apiAction: "GET_USER_BY_ID",
+        apiEndpoint: req.originalUrl,
+        method: req.method,
+        mess: "USER_ID UNDEFINED OR NOT VALID INPUT",
+      },
+    });
+    return res.status(400).json({
+      message: "User Id not defined",
+    });
+  }
+  try {
+    const selectedUser = await User.findById(id);
+
+    if (!selectedUser) {
+      logger.info({
+        data: {
+          status: 400,
+          apiUserID: user.id,
+          traceToken: req.traceToken,
+          apiAction: "GET_USER_BY_ID",
+          apiEndpoint: req.originalUrl,
+          method: req.method,
+          mess: "User not found or doesn't exist in system",
+        },
+      });
+      res.status(400).json({ success: false, msg: "User not found" });
+    }
+    logger.info({
+      data: {
+        status: 200,
+        apiUserID: user.id,
+        traceToken: req.traceToken,
+        apiAction: "GET_USER_BY_ID",
+        apiEndpoint: req.originalUrl,
+        method: req.method,
+        mess: "n/a",
+      },
+    });
+
+    res.status(200).json(selectedUser);
+  } catch (error) {
+    logger.error({
+      data: {
+        status: 500,
+        apiUserID: user.id,
+        traceToken: req.traceToken,
+        apiAction: "GET_USER_BY_ID",
+        apiEndpoint: req.originalUrl,
+        method: req.method,
+        mess: error.message,
+      },
+    });
+    res.status(500).json({ msg: error });
+  }
+};
 
 // Create an employee
 const createEmployee = async (req, res) => {
   try {
-    const { name, email, auth0Id, jobRole, salary, bonus } = req.body;
+    const { name, email, jobRole, salary, bonus } = req.body;
 
     // Ensure job role, salary, and bonus are provided
     if (!jobRole || salary === undefined || bonus === undefined) {
@@ -126,7 +232,6 @@ const createEmployee = async (req, res) => {
     const user = new User({
       name,
       email,
-      auth0Id,
       roles: ["employee"],
       jobRole,
       salary,
@@ -168,4 +273,5 @@ module.exports = {
   createEmployee,
   getAllUsers,
   loginUser,
+  getUserById,
 };
