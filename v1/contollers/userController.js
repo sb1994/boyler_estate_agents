@@ -224,6 +224,17 @@ const createEmployee = async (req, res) => {
 
     // Ensure job role, salary, and bonus are provided
     if (!jobRole || salary === undefined || bonus === undefined) {
+      logger.error({
+        data: {
+          status: 500,
+          apiUserID: user.id,
+          traceToken: req.traceToken,
+          apiAction: "GET_USER_BY_ID",
+          apiEndpoint: req.originalUrl,
+          method: req.method,
+          mess: "Job ROLE, SALARY AND BONUS REQUIRED",
+        },
+      });
       return res.status(400).json({
         message: "Employees must have a job role, salary, and bonus.",
       });
