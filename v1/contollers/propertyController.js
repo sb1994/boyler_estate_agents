@@ -8,12 +8,12 @@ const logger = require("../utils/logger"); // Winston Logger
  */
 const createProperty = async (req, res) => {
   try {
-    const property = new Property({ ...req.body, listedBy: req.user._id });
+    const property = new Property({ ...req.body, listedBy: req.body.listedBy });
     await property.save();
-    logger.info(`Property created: ${property._id} by ${req.user._id}`);
+    logger.info(`Property created: ${property._id} by ${req.body.listedBy}`);
     res
       .status(201)
-      .json({ message: "Property created successfully", property });
+      .json({ message: "Property created successfully", property: req.body });
   } catch (error) {
     logger.error(`Error creating property: ${error.message}`);
     res

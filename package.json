@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "createadmin": "nodemon ./test/create_admin.js"
+    "createadmin": "nodemon ./test/create_admin.js",
+    "createproperties": "nodemon ./test/seed_properties.js"
   },
   "dependencies": {
     "axios": "^1.7.7",
