@@ -19,10 +19,13 @@ require("dotenv").config();
 app.use(passport.initialize());
 // Mongo DB Connections
 mongoose
-  .connect(process.env.DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    process.env.DB_URI || "mongodb://localhost:27017/boyler_real_estate",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then((response) => {
     console.log("MongoDB Connection Succeeded.");
   })
@@ -41,6 +44,6 @@ app.use("/api/v1/property", propertyRoutesV1);
 
 // Connection
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log("App running in port: " + PORT);
 });
