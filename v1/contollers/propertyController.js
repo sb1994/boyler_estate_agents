@@ -29,8 +29,55 @@ const createProperty = async (req, res) => {
  */
 const getAllProperties = async (req, res) => {
   try {
-    const properties = await Property.find();
-    res.status(200).json(properties);
+    let {
+      page = 1,
+      limit = 10,
+      status = "available",
+      sort = "-createdAt",
+      minPrice,
+      maxPrice,
+      type,
+      city,
+    } = req.query;
+    console.log(page);
+
+    // Convert page & limit to numbers
+    page = parseInt(page);
+    limit = parseInt(limit);
+
+    // Construct the filter query
+    let filter = { status };
+
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+
+    if (type) filter.type = type;
+    if (city) filter.city = { $regex: new RegExp(city, "i") }; // Case-insensitive city match
+
+    // Get total properties count for pagination
+    const totalProperties = await Property.countDocuments(filter);
+
+    // Fetch properties with pagination & sorting
+    const properties = await Property.find(filter)
+      .sort(sort)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .select(
+        "title price city state country type bedrooms bathrooms squareFeet status createdAt images"
+      );
+
+    // console.log(properties);
+
+    res.status(200).json({
+      success: true,
+      count: properties.length,
+      page,
+      totalPages: Math.ceil(totalProperties / limit),
+      data: properties,
+    });
   } catch (error) {
     logger.error(`Error fetching properties: ${error.message}`);
     res
