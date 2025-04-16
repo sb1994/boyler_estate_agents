@@ -12,6 +12,8 @@ const passport = require("./v1/utils/passport");
 
 const userRoutesV1 = require("./v1/routes/userRoutes");
 const propertyRoutesV1 = require("./v1/routes/propertyRoutes");
+const departmentRoutesV1 = require("./v1/routes/departmentRoutes");
+
 const { default: mongoose } = require("mongoose");
 
 require("dotenv").config();
@@ -41,6 +43,7 @@ app.use(express.json());
 //version 1
 app.use("/api/v1/users", userRoutesV1);
 app.use("/api/v1/property", propertyRoutesV1);
+app.use("/api/v1/departments", departmentRoutesV1);
 
 // Connection
 const PORT = process.env.PORT || 8080;
