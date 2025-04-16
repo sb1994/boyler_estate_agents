@@ -44,9 +44,32 @@ const verifyAdminOrAgent = (req, res, next) => {
   }
   next();
 };
+const verifyAdminOrHR = (req, res, next) => {
+  // const
+
+  let { role } = req.user;
+
+  if (!role.includes("admin") && !role.includes("hr")) {
+    logger.error({
+      data: {
+        status: 500,
+        traceToken: req.traceToken,
+        apiAction: "ROLE_VERFICATION",
+        apiEndpoint: req.originalUrl,
+        method: req.method,
+        mess: "USER DOESN'T HAVE ACCESS TO THIS RESOURCE, NEEDS TO BE AN AGENT OR ADMIN",
+      },
+    });
+    return res
+      .status(403)
+      .json({ message: "Access Denied: Only Agents and Admins" });
+  }
+  next();
+};
 
 module.exports = {
   isEmpty,
   verifyAdminOrAgent,
+  verifyAdminOrHR,
   traceMiddleware,
 };
