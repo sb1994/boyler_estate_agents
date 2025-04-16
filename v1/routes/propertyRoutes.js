@@ -6,7 +6,7 @@ const {
   getPropertyById,
   deleteProperty,
   updateProperty,
-} = require("../contollers/propertyController");
+} = require("../controllers/propertyController");
 const passport = require("passport");
 const { verifyAdminOrAgent } = require("../utils/utils");
 router.post(

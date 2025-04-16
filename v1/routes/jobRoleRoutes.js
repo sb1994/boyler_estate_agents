@@ -5,7 +5,7 @@ const {
   approveJobRole,
   getJobRoles,
   getJobRoleById,
-} = require("../contollers/jobRoleController");
+} = require("../controllers/jobRoleController");
 const passport = require("passport");
 
 router.post(

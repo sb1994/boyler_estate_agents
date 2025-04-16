@@ -6,7 +6,7 @@ const {
   getDepartmentById,
   updateDepartment,
   deleteDepartment,
-} = require("../contollers/departmentController");
+} = require("../controllers/departmentController");
 
 // adjust path as needed
 const passport = require("passport");
