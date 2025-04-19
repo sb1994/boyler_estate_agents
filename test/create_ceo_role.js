@@ -22,13 +22,13 @@ const seedCEO = async () => {
 
     const ceoRole = new JobRole({
       title: "Chief Executive Officer",
-      department: "67fed6d3f8f78562c6919e72", // Example department ID
+      department: "680296b6401d7ec3194f1596", // Example department ID
       lowSalary: 150000,
       highSalary: 300000,
       grade: 12,
       hiringManager: null,
-      createdBy: "67bf4a1a1d09cb63bd474915",
-      approvedBy: "67bf4a1a1d09cb63bd474915",
+      createdBy: "67aa7a8547aa4ed588686c23",
+      approvedBy: "67aa7a8547aa4ed588686c23",
       status: "approved",
     });
 

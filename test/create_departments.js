@@ -6,60 +6,60 @@ const departments = [
   {
     name: "Executive Suite",
     description: "Responsible for overall company strategy and leadership.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Sales",
     description:
       "Handles client acquisition, property sales, and relationship management.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Lettings",
     description: "Manages rental properties, tenants, and lease agreements.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Property Management",
     description:
       "Oversees maintenance, inspections, and tenant support for managed properties.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Marketing",
     description:
       "Promotes properties and brand through advertising and social media.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Legal & Compliance",
     description:
       "Ensures legal compliance with property laws, contracts, and internal policies.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Finance",
     description:
       "Manages billing, payroll, commissions, and financial planning.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Human Resources",
     description:
       "Handles recruitment, employee relations, and organizational structure.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Customer Support",
     description:
       "Assists clients and tenants with inquiries and service-related issues.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
   {
     name: "Technology",
     description:
       "Manages software, platform infrastructure, and system support.",
-    lead: "67bf4a1a1d09cb63bd474915",
+    lead: "67aa7a8547aa4ed588686c23",
   },
 ];
 

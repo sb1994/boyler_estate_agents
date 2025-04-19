@@ -26,10 +26,10 @@ const seedCEO = async () => {
       lowSalary: 180000,
       highSalary: 250000,
       grade: 1,
-      createdBy: "67bf4a1a1d09cb63bd474915",
-      approvedBy: "67bf4a1a1d09cb63bd474915",
-      department: "67fed6d3f8f78562c6919e73",
-      hiringManager: "67bf4a1a1d09cb63bd474915",
+      createdBy: "67aa7a8547aa4ed588686c23",
+      approvedBy: "67aa7a8547aa4ed588686c23",
+      department: "680296b6401d7ec3194f1596",
+      hiringManager: "67aa7a8547aa4ed588686c23",
       status: "approved",
     });
 
