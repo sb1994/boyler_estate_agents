@@ -15,6 +15,7 @@ const propertyRoutesV1 = require("./v1/routes/propertyRoutes");
 const departmentRoutesV1 = require("./v1/routes/departmentRoutes");
 const jobRoleRoutesV1 = require("./v1/routes/jobRoleRoutes");
 const jobPostingRoutesV1 = require("./v1/routes/jobPostingRoutes");
+const jobApplicationRoutesV1 = require("./v1/routes/jobApplicationRoutes");
 
 const { default: mongoose } = require("mongoose");
 
@@ -48,6 +49,7 @@ app.use("/api/v1/property", propertyRoutesV1);
 app.use("/api/v1/departments", departmentRoutesV1);
 app.use("/api/v1/jobroles", jobRoleRoutesV1);
 app.use("/api/v1/jobpostings", jobPostingRoutesV1);
+app.use("/api/v1/jobapplications", jobApplicationRoutesV1);
 
 // Connection
 const PORT = process.env.PORT || 8080;
