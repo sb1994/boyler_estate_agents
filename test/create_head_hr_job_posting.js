@@ -9,7 +9,7 @@ const seedHeadOfHRPosting = async () => {
     console.log("✅ Connected to MongoDB");
 
     // Get existing JobRole for Head of HR
-    const jobRole = await JobRole.findById("680021482834d37cb7c60d26");
+    const jobRole = await JobRole.findById("6802ebca1e3a3182aed4f527");
     if (!jobRole) {
       console.error("❌ Head of HR JobRole not found");
       return mongoose.disconnect();
@@ -18,7 +18,7 @@ const seedHeadOfHRPosting = async () => {
     // Seed Job Posting for Head of HR
     const newJobPosting = new JobPosting({
       jobRole: jobRole._id,
-      title: "Head of Human Resources",
+      title: jobRole.title,
       description:
         "We are looking for an experienced HR leader to shape and execute our people strategy.",
       requirements: [
@@ -34,7 +34,7 @@ const seedHeadOfHRPosting = async () => {
       location: "Dublin, Ireland",
       employmentType: "full-time",
       skills: ["Leadership", "Employment Law", "Strategy"],
-      postedBy: "67bf4a1a1d09cb63bd474915", // Replace with real User ID (e.g. HR Manager/Admin)
+      postedBy: "67aa7a8547aa4ed588686c23", // Replace with real User ID (e.g. HR Manager/Admin)
       status: "open",
     });
 

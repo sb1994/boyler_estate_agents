@@ -13,7 +13,7 @@ const seedCEO = async () => {
     console.log("Connected to MongoDB");
 
     const ceoExists = await JobRole.findOne({
-      title: "Real Estate Agent",
+      title: "Estate Agent",
     });
     if (ceoExists) {
       console.log("✅ Real Estate Agent role already exists. Skipping...");
@@ -33,7 +33,7 @@ const seedCEO = async () => {
     //   status: "approved",
     // });
     const ceoRole = new JobRole({
-      title: "Real Estate Agent",
+      title: "Estate Agent",
       baseSalary: 35000,
       lowSalary: 30000,
       highSalary: 60000,
