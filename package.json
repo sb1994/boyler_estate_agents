@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
+    "client": "npm run dev --prefix client",
+    "server": "nodemon server/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "createadmin": "nodemon ./test/create_admin.js",
     "createproperties": "nodemon ./test/seed_properties.js",
     "createdepartments": "nodemon ./test/createdepartments.js"
@@ -27,7 +30,7 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "concurrently": "^9.0.1",
+    "concurrently": "^9.1.2",
     "nodemon": "^3.1.7"
   },
   "keywords": [],
