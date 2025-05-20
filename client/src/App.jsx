@@ -2,6 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+// import "@fontsource/roboto/300.css";
+// import "@fontsource/roboto/400.css";
+// import "@fontsource/roboto/500.css";
+// import "@fontsource/roboto/700.css";
+
 import JobOpeningsPage from "./pages/Careers/JobOpeningsPage";
 import JobPostingDetailPage from "./pages/Careers/JobPostingDetailPage";
 import JobApplicationFormPage from "./pages/Careers/JobApplicationFormPage";
